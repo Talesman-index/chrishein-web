@@ -89,8 +89,8 @@ const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 100);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -103,42 +103,71 @@ const Nav = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-xl py-3" : "bg-transparent py-6"
-      } ${isMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+      {/* ── Header toujours visible ── */}
+      <header
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 9000,
+          transition: "background 0.3s, box-shadow 0.3s, padding 0.3s",
+          background: isScrolled ? "#ffffff" : "transparent",
+          boxShadow: isScrolled ? "0 2px 24px rgba(0,0,0,0.08)" : "none",
+          paddingTop: isScrolled ? "10px" : "20px",
+          paddingBottom: isScrolled ? "10px" : "20px",
+        }}
+      >
         <div className="container mx-auto px-6 flex items-center justify-between text-brand-black">
-          <a href="#" className="flex items-center">
-            <Image src="/assets/logo.png" alt="Chrishein" width={140} height={40} className="h-10 w-auto object-contain" />
+          {/* Logo */}
+          <a href="#" className="flex items-center shrink-0">
+            <Image
+              src="/assets/logo.png"
+              alt="Chrishein"
+              width={140}
+              height={40}
+              className="h-9 w-auto object-contain"
+              priority
+            />
           </a>
-          
-          <div className={`hidden lg:flex items-center gap-8 font-medium text-sm transition-all duration-300 ${
-            isScrolled ? "opacity-0 invisible pointer-events-none" : "opacity-100 visible"
-          }`}>
-            {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="hover:text-brand-orange transition-colors">
+
+          {/* Desktop links — always visible, hide on scroll to reveal hamburger */}
+          <nav className="hidden lg:flex items-center gap-8 font-medium text-sm">
+            {!isScrolled && navLinks.map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="hover:text-brand-orange transition-colors"
+              >
                 {link.label}
               </a>
             ))}
-          </div>
+          </nav>
 
-          <div className="flex items-center gap-4">
-            <a href="https://wa.me/2290196142472" className="btn-pill btn-orange text-xs sm:text-sm px-4 sm:px-8 py-2 sm:py-3">
+          {/* Right actions */}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://wa.me/2290196142472"
+              className="btn-pill btn-orange text-xs sm:text-sm px-4 sm:px-7 py-2 sm:py-2.5"
+            >
               Commander
             </a>
-            
-            <button 
+
+            {/* Hamburger: always on mobile, on desktop only when scrolled */}
+            <button
               onClick={() => setIsMenuOpen(true)}
-              className={`p-2 hover:text-brand-orange transition-all duration-300 ${
-                isScrolled ? "opacity-100" : "lg:opacity-0 lg:invisible lg:pointer-events-none"
+              aria-label="Ouvrir le menu"
+              className={`p-2 rounded-lg hover:bg-brand-beige transition-colors text-brand-black ${
+                isScrolled ? "flex" : "flex lg:hidden"
               }`}
             >
-              <Menu size={28} />
+              <Menu size={26} />
             </button>
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Lateral Sidebar Menu */}
+      {/* ── Sidebar Menu ── */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
@@ -147,49 +176,56 @@ const Nav = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-brand-black/50 backdrop-blur-sm z-[1001]"
+              style={{ position: "fixed", inset: 0, background: "rgba(20,18,16,0.5)", backdropFilter: "blur(4px)", zIndex: 9100 }}
             />
-            
-            {/* Sidebar */}
+
+            {/* Sidebar panel */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-[280px] sm:w-[350px] bg-white z-[1002] shadow-[-20px_0_60px_rgba(0,0,0,0.1)] p-10 flex flex-col"
+              transition={{ type: "spring", damping: 28, stiffness: 220 }}
+              style={{ position: "fixed", top: 0, right: 0, height: "100%", zIndex: 9200 }}
+              className="w-[300px] sm:w-[360px] bg-white shadow-2xl p-10 flex flex-col"
             >
-              <div className="flex justify-between items-center mb-16">
+              {/* Sidebar header */}
+              <div className="flex justify-between items-center mb-12">
                 <a href="#" onClick={() => setIsMenuOpen(false)}>
-                  <Image src="/assets/logo.png" alt="Chrishein" width={160} height={50} className="h-12 w-auto object-contain" />
+                  <Image src="/assets/logo.png" alt="Chrishein" width={140} height={44} className="h-11 w-auto object-contain" />
                 </a>
-                <button 
+                <button
                   onClick={() => setIsMenuOpen(false)}
                   className="p-2 hover:bg-brand-beige rounded-full transition-colors"
+                  aria-label="Fermer le menu"
                 >
-                  <X size={24} />
+                  <X size={22} />
                 </button>
               </div>
 
-              <div className="flex flex-col gap-8">
+              {/* Links */}
+              <nav className="flex flex-col gap-6">
                 {navLinks.map((link, i) => (
                   <motion.a
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 24 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.1 }}
+                    transition={{ delay: 0.05 + i * 0.07 }}
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-2xl font-display hover:text-brand-orange transition-colors flex items-center justify-between group"
+                    className="text-2xl font-display text-brand-black hover:text-brand-orange transition-colors flex items-center justify-between group"
                   >
                     {link.label}
-                    <ArrowRight size={20} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    <ArrowRight size={18} className="opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-orange" />
                   </motion.a>
                 ))}
-              </div>
+              </nav>
 
-              <div className="mt-auto space-y-6">
-                <a href="https://wa.me/2290196142472" className="btn-pill btn-orange w-full">
+              {/* Bottom CTA */}
+              <div className="mt-auto space-y-5">
+                <a href="https://wa.me/2290196142472" className="btn-pill btn-orange w-full gap-2">
+                  <WhatsAppIcon size={18} />
                   Commander sur WhatsApp
                 </a>
                 <div className="flex justify-center gap-6 text-gray-400">
