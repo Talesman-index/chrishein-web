@@ -107,9 +107,9 @@ const Nav = () => {
         isScrolled ? "bg-white shadow-xl py-3" : "bg-transparent py-6"
       } ${isMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
         <div className="container mx-auto px-6 flex items-center justify-between text-brand-black">
-          <div className="font-display text-2xl font-bold tracking-tightest">
-            Chris<span className="text-brand-orange">hein</span>
-          </div>
+          <a href="#" className="flex items-center">
+            <Image src="/assets/logo.png" alt="Chrishein" width={140} height={40} className="h-10 w-auto object-contain" />
+          </a>
           
           <div className={`hidden lg:flex items-center gap-8 font-medium text-sm transition-all duration-300 ${
             isScrolled ? "opacity-0 invisible pointer-events-none" : "opacity-100 visible"
@@ -160,9 +160,9 @@ const Nav = () => {
               className="fixed top-0 right-0 h-full w-[280px] sm:w-[350px] bg-white z-[1002] shadow-[-20px_0_60px_rgba(0,0,0,0.1)] p-10 flex flex-col"
             >
               <div className="flex justify-between items-center mb-16">
-                <div className="font-display text-xl font-bold">
-                  Chris<span className="text-brand-orange">hein</span>
-                </div>
+                <a href="#" onClick={() => setIsMenuOpen(false)}>
+                  <Image src="/assets/logo.png" alt="Chrishein" width={160} height={50} className="h-12 w-auto object-contain" />
+                </a>
                 <button 
                   onClick={() => setIsMenuOpen(false)}
                   className="p-2 hover:bg-brand-beige rounded-full transition-colors"
