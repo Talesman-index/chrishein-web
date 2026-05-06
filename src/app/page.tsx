@@ -105,7 +105,7 @@ const Nav = () => {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
         isScrolled ? "bg-white shadow-xl py-3" : "bg-transparent py-6"
-      }`}>
+      } ${isMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
         <div className="container mx-auto px-6 flex items-center justify-between text-brand-black">
           <div className="font-display text-2xl font-bold tracking-tightest">
             Chris<span className="text-brand-orange">hein</span>
@@ -148,7 +148,7 @@ const Nav = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-brand-black/40 backdrop-blur-sm z-[60]"
+              className="fixed inset-0 bg-brand-black/50 backdrop-blur-sm z-[1001]"
             />
             
             {/* Sidebar */}
@@ -157,7 +157,7 @@ const Nav = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-[280px] sm:w-[350px] bg-white z-[70] shadow-[-20px_0_60px_rgba(0,0,0,0.1)] p-10 flex flex-col"
+              className="fixed top-0 right-0 h-full w-[280px] sm:w-[350px] bg-white z-[1002] shadow-[-20px_0_60px_rgba(0,0,0,0.1)] p-10 flex flex-col"
             >
               <div className="flex justify-between items-center mb-16">
                 <div className="font-display text-xl font-bold">
