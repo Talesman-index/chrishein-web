@@ -14,7 +14,6 @@ import {
   MapPin, 
   ChevronDown,
   Globe,
-  MessageCircle as WhatsApp,
   Mail,
   Truck,
   Smartphone,
@@ -25,41 +24,188 @@ import {
   Plane,
   ShieldCheck,
   Plus,
-  Camera as Instagram
+  Menu,
+  X
 } from "lucide-react";
+
+// --- Brand Icons ---
+
+const WhatsAppIcon = ({ size = 20, className = "" }: { size?: number, className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    width={size} 
+    height={size} 
+    fill="currentColor" 
+    className={className}
+  >
+    <path d="M12.031 2c-5.508 0-9.969 4.461-9.969 9.969 0 1.762.461 3.418 1.266 4.863L2 22l5.352-1.398c1.406.766 3.016 1.191 4.715 1.191 5.508 0 9.969-4.461 9.969-9.969s-4.461-9.969-9.969-9.969zm5.559 14.152c-.223.633-1.09 1.164-1.785 1.258-.469.059-1.078.082-1.734-.121-.445-.141-.984-.332-1.586-.594-2.551-1.086-4.203-3.691-4.328-3.859-.125-.168-.918-1.227-.918-2.336 0-1.109.578-1.652.785-1.871.207-.219.453-.273.594-.273.141 0 .281.004.402.012.133.004.305-.051.48.375.18.438.617 1.504.672 1.617.055.113.09.246.016.395-.074.152-.113.246-.223.375-.113.129-.234.289-.336.391-.109.117-.223.246-.098.461.125.215.555.914 1.191 1.48.816.727 1.504.953 1.719 1.059.215.105.34.09.465-.055.125-.145.543-.633.688-.852.145-.219.289-.184.488-.109.203.074 1.285.605 1.508.715s.371.164.426.258c.051.094.051.543-.172 1.176z"/>
+  </svg>
+);
+
+const InstagramIcon = ({ size = 20, className = "" }: { size?: number, className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    width={size} 
+    height={size} 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+);
+
+// --- Animation Helpers ---
+
+const Reveal = ({ children, delay = 0, y = 30, x = 0 }: { children: React.ReactNode, delay?: number, y?: number, x?: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y, x }}
+    whileInView={{ opacity: 1, y: 0, x: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.8, delay, ease: [0.21, 0.45, 0.32, 0.9] }}
+  >
+    {children}
+  </motion.div>
+);
+
+const Floating = ({ children, delay = 0, duration = 4 }: { children: React.ReactNode, delay?: number, duration?: number }) => (
+  <motion.div
+    animate={{ y: [0, -15, 0] }}
+    transition={{ duration, repeat: Infinity, ease: "easeInOut", delay }}
+  >
+    {children}
+  </motion.div>
+);
 
 // --- Components ---
 
 const Nav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? "bg-white/80 backdrop-blur-md py-4 shadow-sm" : "bg-transparent py-6"
-    }`}>
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <div className="font-display text-2xl font-bold tracking-tightest">
-          Chris<span className="text-brand-orange">hein</span>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-8 font-medium text-sm">
-          <a href="#how" className="hover:text-brand-orange transition-colors">Comment ça marche</a>
-          <a href="#pricing" className="hover:text-brand-orange transition-colors">Tarifs</a>
-          <a href="#platforms" className="hover:text-brand-orange transition-colors">Plateformes</a>
-          <a href="#faq" className="hover:text-brand-orange transition-colors">FAQ</a>
-        </div>
+  const navLinks = [
+    { href: "#how", label: "Comment ça marche" },
+    { href: "#pricing", label: "Tarifs" },
+    { href: "#platforms", label: "Plateformes" },
+    { href: "#faq", label: "FAQ" },
+  ];
 
-        <a href="https://wa.me/2290196142472" className="btn-pill btn-orange text-sm shadow-lg shadow-brand-orange/20">
-          Commander maintenant
-        </a>
-      </div>
-    </nav>
+  return (
+    <>
+      <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${
+        isScrolled ? "bg-white shadow-xl py-3" : "bg-transparent py-6"
+      }`}>
+        <div className="container mx-auto px-6 flex items-center justify-between text-brand-black">
+          <div className="font-display text-2xl font-bold tracking-tightest">
+            Chris<span className="text-brand-orange">hein</span>
+          </div>
+          
+          <div className={`hidden lg:flex items-center gap-8 font-medium text-sm transition-all duration-300 ${
+            isScrolled ? "opacity-0 invisible pointer-events-none" : "opacity-100 visible"
+          }`}>
+            {navLinks.map(link => (
+              <a key={link.href} href={link.href} className="hover:text-brand-orange transition-colors">
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-4">
+            <a href="https://wa.me/2290196142472" className="btn-pill btn-orange text-xs sm:text-sm px-4 sm:px-8 py-2 sm:py-3">
+              Commander
+            </a>
+            
+            <button 
+              onClick={() => setIsMenuOpen(true)}
+              className={`p-2 hover:text-brand-orange transition-all duration-300 ${
+                isScrolled ? "opacity-100" : "lg:opacity-0 lg:invisible lg:pointer-events-none"
+              }`}
+            >
+              <Menu size={28} />
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Lateral Sidebar Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+              className="fixed inset-0 bg-brand-black/40 backdrop-blur-sm z-[60]"
+            />
+            
+            {/* Sidebar */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 h-full w-[280px] sm:w-[350px] bg-white z-[70] shadow-[-20px_0_60px_rgba(0,0,0,0.1)] p-10 flex flex-col"
+            >
+              <div className="flex justify-between items-center mb-16">
+                <div className="font-display text-xl font-bold">
+                  Chris<span className="text-brand-orange">hein</span>
+                </div>
+                <button 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 hover:bg-brand-beige rounded-full transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-8">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.1 }}
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-2xl font-display hover:text-brand-orange transition-colors flex items-center justify-between group"
+                  >
+                    {link.label}
+                    <ArrowRight size={20} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </motion.a>
+                ))}
+              </div>
+
+              <div className="mt-auto space-y-6">
+                <a href="https://wa.me/2290196142472" className="btn-pill btn-orange w-full">
+                  Commander sur WhatsApp
+                </a>
+                <div className="flex justify-center gap-6 text-gray-400">
+                  <a href="https://instagram.com/chri-shein" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">
+                    <InstagramIcon size={20} />
+                  </a>
+                  <a href="mailto:contact@chrishein.bj" className="hover:text-brand-orange transition-colors">
+                    <Mail size={20} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
@@ -72,47 +218,79 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
-      {/* Organic Shape Background */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-orange/5 -z-10 rounded-l-[100px] hidden lg:block" />
+    <section className="relative pt-32 lg:pt-48 pb-20 lg:pb-32 overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-20 right-[10%] w-64 h-64 bg-brand-orange/10 rounded-full blur-[100px] -z-10 animate-pulse" />
+      <div className="absolute bottom-10 left-[5%] w-96 h-96 bg-brand-beige rounded-full blur-[120px] -z-10" />
       
+      {/* Floating Icons */}
+      <div className="absolute top-40 left-[15%] hidden lg:block opacity-20">
+        <Floating duration={5}><Plane className="text-brand-orange" size={32} /></Floating>
+      </div>
+      <div className="absolute bottom-40 right-[15%] hidden lg:block opacity-20">
+        <Floating delay={1} duration={6}><ShoppingBag className="text-brand-orange" size={28} /></Floating>
+      </div>
+
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="flex items-center gap-2 mb-6">
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-brand-beige overflow-hidden">
-                  <Image src={`https://i.pravatar.cc/100?u=${i}`} alt="User" width={32} height={32} />
-                </div>
-              ))}
+        <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+          <Reveal>
+            <div className="flex items-center gap-2 mb-6">
+              <div className="flex -space-x-2">
+                {[
+                  { src: "/assets/customer_1.png", alt: "Client Chrishein" },
+                  { src: "/assets/customer_2.png", alt: "Client Chrishein" },
+                  { src: "/assets/customer_3.png", alt: "Client Chrishein" },
+                  { src: "/assets/customer_4.png", alt: "Client Chrishein" },
+                ].map((item, i) => (
+                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-brand-beige overflow-hidden">
+                    <Image 
+                      src={item.src} 
+                      alt={item.alt} 
+                      width={32} 
+                      height={32} 
+                      className="w-full h-full object-cover scale-110"
+                    />
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] sm:text-xs font-medium text-brand-orange bg-brand-orange/10 px-3 py-1 rounded-full">
+                Des centaines de clients satisfaits à Cotonou
+              </p>
             </div>
-            <p className="text-xs font-medium text-brand-orange bg-brand-orange/10 px-3 py-1 rounded-full">
-              Des centaines de clients satisfaits à Cotonou
-            </p>
-          </div>
+          </Reveal>
 
-          <h1 className="font-display text-5xl lg:text-[64px] leading-[1.05] tracking-tightest mb-8">
-            Le monde entier, livré chez vous <span className="text-brand-orange italic">au Bénin.</span>
-          </h1>
+          <Reveal delay={0.1}>
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-[64px] leading-[1.1] tracking-tightest mb-8">
+              Le monde entier, livré chez vous <span className="relative inline-block">
+                <span className="text-brand-orange italic">au Bénin.</span>
+                <motion.span 
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                  className="absolute bottom-1 left-0 h-1 sm:h-2 bg-brand-orange/20 -z-10" 
+                />
+              </span>
+            </h1>
+          </Reveal>
           
-          <p className="text-lg text-gray-600 mb-10 max-w-lg leading-relaxed">
-            Chrishein commande à votre place sur SHEIN, Temu, Alibaba, Amazon et bien d'autres — sans stress, sans frontières, sans mauvaises surprises.
-          </p>
+          <Reveal delay={0.2}>
+            <p className="text-base sm:text-lg text-gray-600 mb-10 max-w-lg leading-relaxed">
+              Chrishein commande à votre place sur SHEIN, Temu, Alibaba, Amazon et bien d'autres — sans stress, sans frontières, sans mauvaises surprises.
+            </p>
+          </Reveal>
 
-          <div className="flex flex-col sm:flex-row gap-6 items-center">
-            <a href="https://wa.me/2290196142472" className="btn-pill btn-black w-full sm:w-auto flex gap-3">
-              <MessageCircle size={20} className="text-green-500 fill-green-500" />
-              Envoyer mon lien WhatsApp
-            </a>
-            <a href="#how" className="text-sm font-semibold border-b-2 border-brand-orange hover:text-brand-orange transition-colors py-1">
-              Voir comment ça marche →
-            </a>
-          </div>
-        </motion.div>
+          <Reveal delay={0.3}>
+            <div className="flex flex-col sm:flex-row gap-6 items-center w-full sm:w-auto">
+              <a href="https://wa.me/2290196142472" className="btn-pill btn-black w-full sm:w-auto flex gap-3 text-sm sm:text-base group">
+                <WhatsAppIcon size={20} className="text-[#25D366] group-hover:scale-110 transition-transform" />
+                Envoyer mon lien WhatsApp
+              </a>
+              <a href="#how" className="text-sm font-semibold border-b-2 border-brand-orange hover:text-brand-orange transition-colors py-1">
+                Voir comment ça marche →
+              </a>
+            </div>
+          </Reveal>
+        </div>
 
         <div className="relative">
           <motion.div
@@ -223,24 +401,26 @@ const HowItWorks = () => {
   return (
     <section id="how" className="bg-brand-beige py-24">
       <div className="container mx-auto px-6 text-center">
-        <h2 className="font-display text-4xl lg:text-5xl mb-12">Simple comme un message WhatsApp.</h2>
+        <Reveal>
+          <h2 className="font-display text-4xl lg:text-5xl mb-12">Simple comme un message WhatsApp.</h2>
+        </Reveal>
         
-        <div className="flex justify-center gap-4 mb-16">
+        <div className="flex flex-wrap justify-center gap-3 mb-12 sm:mb-16 px-4">
           <button 
             onClick={() => setActiveTab("link")}
-            className={`px-8 py-3 rounded-full font-semibold transition-all ${
+            className={`px-6 sm:px-8 py-3 rounded-full text-sm sm:text-base font-semibold transition-all ${
               activeTab === "link" ? "bg-brand-orange text-white shadow-lg shadow-brand-orange/20" : "bg-white text-gray-500"
             }`}
           >
-            Vous avez un lien
+            J'ai un lien
           </button>
           <button 
             onClick={() => setActiveTab("search")}
-            className={`px-8 py-3 rounded-full font-semibold transition-all ${
+            className={`px-6 sm:px-8 py-3 rounded-full text-sm sm:text-base font-semibold transition-all ${
               activeTab === "search" ? "bg-brand-orange text-white shadow-lg shadow-brand-orange/20" : "bg-white text-gray-500"
             }`}
           >
-            Vous cherchez un produit
+            Je cherche un produit
           </button>
         </div>
 
@@ -381,18 +561,24 @@ const Pricing = () => {
       </motion.div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl lg:text-5xl mb-4 text-brand-black">Des tarifs sans surprises.</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto">
-            Notre formule : <span className="font-bold text-brand-orange">Prix article + Expédition + Prestation = Votre Devis TTC</span>
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-16">
+            <h2 className="font-display text-4xl lg:text-5xl mb-4 text-brand-black">Des tarifs sans surprises.</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              Notre formule : <span className="font-bold text-brand-orange">Prix article + Expédition + Prestation = Votre Devis TTC</span>
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
+        <div className="grid lg:grid-cols-3 gap-10 items-stretch">
           {/* SHEIN Card */}
-          <div className="card-premium">
+          <Reveal delay={0.1} y={40}>
+            <motion.div 
+              whileHover={{ y: -15, rotateX: 2, rotateY: 2, scale: 1.02 }}
+              className="card-premium border-2 border-brand-orange/10 hover:border-brand-orange flex flex-col h-full shadow-lg"
+            >
             <h3 className="font-display text-2xl mb-6">SHEIN</h3>
-            <div className="space-y-6">
+            <div className="space-y-6 flex-grow">
               <div className="space-y-4">
                 <div className="flex justify-between items-center pb-2 border-b border-brand-beige">
                   <span className="text-sm">Accessoires (TTC)</span>
@@ -420,13 +606,21 @@ const Pricing = () => {
                 <span>Livraison : 18 jours max</span>
               </div>
             </div>
-          </div>
+            <div className="mt-8">
+              <a href="https://wa.me/2290196142472" className="btn-pill btn-black w-full text-center block text-sm">Commander sur SHEIN</a>
+            </div>
+          </motion.div>
+        </Reveal>
 
-          {/* Temu Featured Card */}
-          <div className="bg-brand-black text-white p-8 rounded-3xl lg:-mt-4 lg:py-12 border-2 border-brand-orange relative overflow-hidden shadow-2xl">
+        {/* Temu Featured Card */}
+          <Reveal delay={0.2} y={40}>
+            <motion.div 
+              whileHover={{ y: -15, rotateX: 2, rotateY: 2, scale: 1.05 }}
+              className="bg-brand-black text-white p-8 rounded-[32px] border-2 border-brand-orange relative overflow-hidden shadow-2xl flex flex-col h-full"
+            >
             <div className="absolute top-4 right-4 bg-brand-orange text-[10px] font-bold px-2 py-1 rounded text-white uppercase tracking-widest">Populaire</div>
             <h3 className="font-display text-3xl mb-8">Temu</h3>
-            <div className="space-y-8">
+            <div className="space-y-8 flex-grow">
               <div className="space-y-4">
                 <div className="flex justify-between items-center pb-2 border-white/10 border-b">
                   <span className="text-sm text-gray-300">Accessoires (TTC)</span>
@@ -441,16 +635,20 @@ const Pricing = () => {
                 <Zap size={14} className="text-brand-orange" />
                 <span>Livraison : 18 jours max</span>
               </div>
-              <div className="pt-4">
-                <a href="https://wa.me/2290196142472" className="btn-pill btn-orange w-full text-center block">Commander sur Temu</a>
-              </div>
             </div>
-          </div>
+            <div className="mt-8">
+              <a href="https://wa.me/2290196142472" className="btn-pill btn-orange w-full text-center block shadow-lg shadow-brand-orange/30">Commander sur Temu</a>
+            </div>
+          </motion.div>
+        </Reveal>
 
-          {/* Alibaba Card */}
-          <div className="card-premium">
+          <Reveal delay={0.3} y={40}>
+            <motion.div 
+              whileHover={{ y: -15, rotateX: 2, rotateY: 2, scale: 1.02 }}
+              className="card-premium border-2 border-brand-orange/10 hover:border-brand-orange flex flex-col h-full shadow-lg"
+            >
             <h3 className="font-display text-2xl mb-6">Alibaba</h3>
-            <div className="space-y-6">
+            <div className="space-y-6 flex-grow">
               <div className="flex justify-between items-center pb-2 border-b border-brand-beige">
                 <span className="text-sm">Taux HT</span>
                 <span className="font-bold text-brand-orange">650 FCFA/$</span>
@@ -475,7 +673,11 @@ const Pricing = () => {
                 </p>
               </div>
             </div>
-          </div>
+            <div className="mt-8">
+              <a href="https://wa.me/2290196142472" className="btn-pill btn-black w-full text-center block text-sm">Devis Alibaba</a>
+            </div>
+          </motion.div>
+        </Reveal>
         </div>
 
         {/* Other Sites Note */}
@@ -505,22 +707,25 @@ const Platforms = () => {
   return (
     <section id="platforms" className="bg-brand-beige py-24">
       <div className="container mx-auto px-6">
-        <h2 className="font-display text-4xl mb-16 text-center">Toutes vos boutiques préférées.</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <Reveal>
+          <h2 className="font-display text-4xl mb-16 text-center">Toutes vos boutiques préférées.</h2>
+        </Reveal>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {items.map((item, i) => (
-            <div 
-              key={i} 
-              className={`p-8 rounded-3xl border border-brand-orange/5 shadow-sm transition-all hover:shadow-md ${item.color} ${item.type === 'large' ? 'col-span-2' : ''} flex flex-col items-start`}
-            >
-              <div className="h-12 flex items-center mb-6">
-                {item.logo ? (
-                  <Image src={item.logo} alt={item.name} width={120} height={40} className="h-full w-auto object-contain" />
-                ) : (
-                  <h3 className="font-display text-xl">{item.name}</h3>
-                )}
+            <Reveal key={i} delay={i * 0.05} y={15}>
+              <div 
+                className={`p-6 sm:p-8 rounded-3xl border border-brand-orange/5 shadow-sm transition-all hover:shadow-md hover:bg-white active:scale-95 ${item.color} ${item.type === 'large' ? 'col-span-2' : ''} flex flex-col items-start h-full`}
+              >
+                <div className="h-8 sm:h-12 flex items-center mb-4 sm:mb-6">
+                  {item.logo ? (
+                    <Image src={item.logo} alt={item.name} width={100} height={35} className="h-full w-auto object-contain" />
+                  ) : (
+                    <h3 className="font-display text-lg sm:text-xl">{item.name}</h3>
+                  )}
+                </div>
+                <p className="text-[10px] sm:text-xs text-gray-500 font-medium leading-tight">{item.desc}</p>
               </div>
-              <p className="text-xs text-gray-500 font-medium">{item.desc}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -538,7 +743,7 @@ const PlatformGuides = () => {
         { title: "Installation", desc: "Téléchargez l'app SHEIN et créez votre compte.", icon: <Download size={20} /> },
         { title: "Shopping", desc: "Faites votre shopping et 'Ajoutez au panier'.", icon: <ShoppingBag size={20} /> },
         { title: "Partage", desc: "Cliquez sur l'icône de partage en haut à droite du panier.", icon: <Share2 size={20} /> },
-        { title: "Envoi", desc: "Envoyez le lien à Chrishein via WhatsApp pour votre devis.", icon: <WhatsApp size={20} /> },
+        { title: "Envoi", desc: "Envoyez le lien à Chrishein via WhatsApp pour votre devis.", icon: <WhatsAppIcon size={20} /> },
         { title: "Livraison", desc: "Validez, payez et recevez votre colis en 18j max.", icon: <Truck size={20} /> },
       ]
     },
@@ -574,14 +779,14 @@ const PlatformGuides = () => {
             <p className="text-gray-500 max-w-2xl mx-auto">Suivez ces étapes simples pour commander sur vos applications préférées avec Chrishein.</p>
           </div>
           
-          <div className="flex justify-center gap-3 mb-16 overflow-x-auto pb-4 no-scrollbar">
+          <div className="flex justify-center gap-2 sm:gap-4 mb-16 overflow-x-auto pb-4 no-scrollbar px-4">
             {Object.keys(guides).map((key) => (
               <button 
                 key={key}
                 onClick={() => setActivePlatform(key as any)}
-                className={`px-8 py-4 rounded-2xl font-bold transition-all whitespace-nowrap border-2 ${
+                className={`px-6 sm:px-10 py-3 sm:py-4 rounded-2xl font-bold transition-all whitespace-nowrap border-2 text-sm sm:text-base ${
                   activePlatform === key 
-                    ? "bg-brand-black text-white border-brand-black shadow-xl shadow-brand-black/20" 
+                    ? "bg-brand-black text-white border-brand-black shadow-xl shadow-brand-black/20 scale-105" 
                     : "bg-white text-gray-500 border-brand-beige hover:border-brand-orange/30"
                 }`}
               >
@@ -590,27 +795,61 @@ const PlatformGuides = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-8 relative">
-             <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-brand-orange/10 hidden lg:block -translate-y-12" />
-             
-             <AnimatePresence mode="wait">
-               {guides[activePlatform].steps.map((step, i) => (
-                 <motion.div 
-                   key={step.title + activePlatform}
-                   initial={{ opacity: 0, scale: 0.9 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0, scale: 0.9 }}
-                   transition={{ delay: i * 0.1 }}
-                   className="relative z-10 flex flex-col items-center text-center group"
-                 >
-                   <div className="w-16 h-16 bg-white border-2 border-brand-orange/20 rounded-[22px] flex items-center justify-center text-brand-orange mb-6 shadow-sm group-hover:bg-brand-orange group-hover:text-white group-hover:border-brand-orange transition-all duration-500">
-                     {step.icon}
-                   </div>
-                   <h4 className="font-bold text-sm mb-2">{step.title}</h4>
-                   <p className="text-[11px] text-gray-500 leading-relaxed px-2">{step.desc}</p>
-                 </motion.div>
-               ))}
-             </AnimatePresence>
+          <div className="relative">
+            {/* Progression Line - Desktop */}
+            <div className="absolute top-8 left-0 right-0 h-[2px] bg-brand-orange/10 hidden lg:block" />
+            
+            {/* Progression Line - Mobile (Vertical) */}
+            <div className="absolute left-8 top-0 bottom-0 w-[2px] bg-brand-orange/10 lg:hidden" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8 relative">
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={activePlatform}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { 
+                      opacity: 1,
+                      transition: { staggerChildren: 0.1 }
+                    },
+                    exit: { 
+                      opacity: 0,
+                      transition: { staggerChildren: 0.05, staggerDirection: -1 }
+                    }
+                  }}
+                  className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8 w-full col-span-1 lg:col-span-5"
+                >
+                  {guides[activePlatform].steps.map((step, i) => (
+                    <motion.div 
+                      key={step.title + activePlatform}
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0 },
+                        exit: { opacity: 0, y: -20 }
+                      }}
+                      className="relative z-10 flex flex-row lg:flex-col items-center lg:items-center gap-6 lg:gap-0 text-left lg:text-center group"
+                    >
+                      <div className="relative mb-4 lg:mb-8">
+                        <div className="w-16 h-16 bg-white border-2 border-brand-orange/20 rounded-[22px] flex items-center justify-center text-brand-orange shadow-sm group-hover:bg-brand-orange group-hover:text-white group-hover:border-brand-orange transition-all duration-500 relative z-10">
+                          {step.icon}
+                        </div>
+                        {/* Step Number Badge */}
+                        <span className="absolute -top-2 -right-2 w-7 h-7 bg-brand-orange text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white shadow-sm z-20">
+                          {i + 1}
+                        </span>
+                      </div>
+                      <div className="flex-1 lg:flex-none">
+                        <h4 className="font-bold text-sm mb-2 group-hover:text-brand-orange transition-colors">{step.title}</h4>
+                        <p className="text-[11px] text-gray-500 leading-relaxed max-w-[200px] lg:px-2">{step.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
 
           {activePlatform === "alibaba" && (
@@ -722,12 +961,14 @@ const FAQ = () => {
 
   return (
     <section id="faq" className="py-24 bg-white">
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16">
-        <div>
-          <h2 className="font-display text-4xl lg:text-5xl mb-8">Vous avez des questions ?</h2>
-          <p className="text-gray-500 mb-8 max-w-sm leading-relaxed">Nous sommes là pour vous aider à y voir plus clair. Si vous ne trouvez pas votre réponse, contactez-nous directement.</p>
-          <a href="https://wa.me/2290196142472" className="btn-pill btn-orange">Parler à un conseiller</a>
-        </div>
+      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <Reveal>
+          <div className="text-center lg:text-left">
+            <h2 className="font-display text-4xl lg:text-5xl mb-6 lg:mb-8">Vous avez des questions ?</h2>
+            <p className="text-gray-500 mb-8 max-w-sm mx-auto lg:mx-0 leading-relaxed">Nous sommes là pour vous aider à y voir plus clair. Si vous ne trouvez pas votre réponse, contactez-nous directement.</p>
+            <a href="https://wa.me/2290196142472" className="btn-pill btn-orange text-sm">Parler à un conseiller</a>
+          </div>
+        </Reveal>
         <div className="space-y-4">
           {faqs.map((faq, i) => (
             <div key={i} className="border-b border-brand-beige pb-4">
@@ -762,22 +1003,24 @@ const FAQ = () => {
 
 const FinalCTA = () => {
   return (
-    <section className="container mx-auto px-6 py-20">
-      <div className="bg-brand-orange/5 rounded-[40px] p-12 lg:p-20 text-center relative overflow-hidden">
-        <div className="absolute -top-24 -left-24 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl" />
-        
-        <h2 className="font-display text-4xl lg:text-6xl mb-8 relative z-10">Votre prochain favori <br className="hidden lg:block" /> vous attend déjà en ligne.</h2>
-        <p className="text-gray-500 mb-12 max-w-md mx-auto relative z-10">Envoyez-nous vos liens aujourd'hui et recevez votre colis dans quelques jours.</p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-          <a href="https://wa.me/2290196142472" className="btn-pill bg-[#25D366] text-white hover:bg-opacity-90 gap-2">
-            <MessageCircle size={20} fill="white" />
-            Commander sur WhatsApp
-          </a>
-          <a href="#pricing" className="btn-pill btn-black">Voir les tarifs</a>
+    <section className="container mx-auto px-6 py-16 sm:py-20">
+      <Reveal y={40}>
+        <div className="bg-brand-orange/5 rounded-[40px] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden">
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl" />
+          
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl mb-6 sm:mb-8 relative z-10">Votre prochain favori <br className="hidden lg:block" /> vous attend déjà en ligne.</h2>
+          <p className="text-sm sm:text-base text-gray-500 mb-10 sm:mb-12 max-w-md mx-auto relative z-10">Envoyez-nous vos liens aujourd'hui et recevez votre colis dans quelques jours.</p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10 w-full sm:w-auto">
+            <a href="https://wa.me/2290196142472" className="btn-pill bg-[#25D366] text-white hover:bg-opacity-90 gap-2 text-sm group">
+              <WhatsAppIcon size={20} className="group-hover:scale-110 transition-transform" />
+              Commander sur WhatsApp
+            </a>
+            <a href="#pricing" className="btn-pill btn-black text-sm">Voir les tarifs</a>
+          </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 };
@@ -795,9 +1038,15 @@ const Footer = () => {
               Le shopping international sans stress. Livraison sécurisée et transparente partout au Bénin.
             </p>
             <div className="flex gap-4 mt-8">
-              <a href="https://instagram.com/chri-shein" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors"><Instagram size={18} /></a>
-              <a href="https://wa.me/2290196142472" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors"><WhatsApp size={18} /></a>
-              <a href="mailto:contact@chrishein.bj" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors"><Mail size={18} /></a>
+              <a href="https://instagram.com/chri-shein" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors group">
+                <InstagramIcon size={18} className="group-hover:scale-110 transition-transform" />
+              </a>
+              <a href="https://wa.me/2290196142472" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors group">
+                <WhatsAppIcon size={18} className="group-hover:scale-110 transition-transform" />
+              </a>
+              <a href="mailto:contact@chrishein.bj" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors group">
+                <Mail size={18} className="group-hover:scale-110 transition-transform" />
+              </a>
             </div>
           </div>
           
@@ -822,8 +1071,8 @@ const Footer = () => {
         </div>
         
         <div className="pt-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-gray-600 uppercase tracking-widest font-bold">
-          <p>© 2024 Chrishein. Tous droits réservés.</p>
-          <p>Design & Code by Antigravity</p>
+          <p>© 2026 Chrishein. Tous droits réservés.</p>
+          <p>Design & Code by Talesman</p>
         </div>
       </div>
     </footer>

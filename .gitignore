@@ -36,6 +36,4 @@ next-env.d.ts
 scratch/
 icons.txt
 check_icons.js
-*.png
-*.txt
 .gemini/
