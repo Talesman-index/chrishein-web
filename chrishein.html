@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chrishein — Shopping International livré au Bénin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #E8621A;
+    --orange-light: #F7894A;
+    --orange-pale: #FDF0E8;
+    --black: #141210;
+    --ink: #2A2520;
+    --stone: #6B6560;
+    --mist: #F5F2EE;
+    --white: #FDFCFB;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 5vw;
+    background: rgba(253, 252, 251, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--black);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--orange); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  .nav-cta {
+    background: var(--orange);
+    color: white !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-weight: 500 !important;
+    font-size: 0.875rem !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--orange-light) !important;
+    transform: translateY(-1px);
+    color: white !important;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5vw 5rem;
+    gap: 4rem;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60vw;
+    height: 120%;
+    background: var(--orange-pale);
+    border-radius: 40% 0 0 60%;
+    z-index: 0;
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--orange);
+    border-radius: 2px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--orange);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--stone);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--black);
+    color: white;
+    padding: 0.875rem 1.75rem;
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: var(--orange);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+
+  .btn-secondary:hover { color: var(--orange); }
+
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .trust-avatars {
+    display: flex;
+  }
+
+  .trust-avatars span {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    background: var(--orange);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 500;
+    margin-left: -8px;
+  }
+
+  .trust-avatars span:first-child { margin-left: 0; }
+
+  .trust-avatars span:nth-child(2) { background: #4A90D9; }
+  .trust-avatars span:nth-child(3) { background: #3DAA7A; }
+  .trust-avatars span:nth-child(4) { background: #9B59B6; }
+
+  .trust-text {
+    font-size: 0.8125rem;
+    color: var(--stone);
+    line-height: 1.4;
+  }
+
+  .trust-text strong {
+    color: var(--ink);
+    font-weight: 500;
+    display: block;
+  }
+
+  /* Hero visuals */
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    animation: floatIn 0.6s ease both;
+  }
+
+  .platform-card:nth-child(1) { animation-delay: 0.1s; margin-left: 0; }
+  .platform-card:nth-child(2) { animation-delay: 0.2s; margin-left: 2rem; }
+  .platform-card:nth-child(3) { animation-delay: 0.3s; margin-left: 0; }
+  .platform-card:nth-child(4) { animation-delay: 0.4s; margin-left: 3rem; }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .platform-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .platform-info { flex: 1; }
+
+  .platform-name {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--black);
+  }
+
+  .platform-tag {
+    font-size: 0.75rem;
+    color: var(--stone);
+    margin-top: 2px;
+  }
+
+  .platform-rate {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  /* ─── TRUST STRIP ─── */
+  .trust-strip {
+    background: var(--black);
+    padding: 1.5rem 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.875rem;
+  }
+
+  .trust-item-icon {
+    color: var(--orange);
+    font-size: 1rem;
+  }
+
+  .trust-item strong {
+    color: white;
+    font-weight: 500;
+  }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 6rem 5vw; }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--black);
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1.0625rem;
+    color: var(--stone);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 520px;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how-section { background: var(--mist); }
+
+  .how-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(0,0,0,0.05);
+    padding: 4px;
+    border-radius: 100px;
+    width: fit-content;
+    margin-bottom: 2.5rem;
+  }
+
+  .tab {
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--stone);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.2s;
+  }
+
+  .tab.active {
+    background: var(--white);
+    color: var(--black);
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--orange) 0%, transparent 100%);
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .step:not(.active-step) .step-num {
+    background: var(--white);
+    border: 2px solid rgba(0,0,0,0.1);
+    color: var(--stone);
+  }
+
+  .step-title {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .step-desc {
+    font-size: 0.8125rem;
+    color: var(--stone);
+    line-height: 1.55;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing-section { background: var(--white); }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .pricing-header .section-sub { margin: 0 auto; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .pricing-card {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    background: var(--white);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  }
+
+  .pricing-card.featured {
+    border-color: var(--orange);
+    border-width: 2px;
+    background: var(--black);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--orange);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .pricing-platform {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 0.5rem;
+  }
+
+  .pricing-card.featured .pricing-platform { color: rgba(255,255,255,0.5); }
+
+  .pricing-name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-card.featured .pricing-name { color: white; }
+
+  .pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 0.875rem;
+  }
+
+  .pricing-card.featured .pricing-row { border-bottom-color: rgba(255,255,255,0.08); }
+
+  .pricing-row:last-of-type { border-bottom: none; }
+
+  .pricing-label { color: var(--stone); }
+  .pricing-card.featured .pricing-label { color: rgba(255,255,255,0.55); }
+
+  .pricing-value {
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .pricing-card.featured .pricing-value { color: white; }
+
+  .pricing-highlight { color: var(--orange) !important; font-weight: 700 !important; }
+
+  .pricing-note {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  .pricing-card.featured .pricing-note { color: rgba(255,255,255,0.4); }
+
+  /* ─── PLATFORMS ─── */
+  .platforms-section { background: var(--mist); }
+
+  .platforms-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .platforms-mosaic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .platform-tile {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+
+  .platform-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .platform-tile-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+
+  .platform-tile-name {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--black);
+  }
+
+  .platform-tile-cat {
+    font-size: 0.75rem;
+    color: var(--stone);
+    margin-top: -0.4rem;
+  }
+
+  .platform-tile.featured-tile {
+    background: var(--orange-pale);
+    border-color: var(--orange);
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem 1.75rem;
+  }
+
+  .featured-tile .platform-tile-icon {
+    background: var(--orange);
+    width: 52px;
+    height: 52px;
+    color: white;
+  }
+
+  /* ─── WHY ─── */
+  .why-section { background: var(--black); color: white; }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .why-section .section-title { color: white; }
+  .why-section .section-label { color: var(--orange); }
+
+  .why-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .why-feat {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .feat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(232,98,26,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--orange);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .feat-text h4 {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: white;
+    margin-bottom: 0.25rem;
+  }
+
+  .feat-text p {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .why-visual {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 2rem;
+  }
+
+  .testimonial {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .testimonial:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .testimonial-stars {
+    color: var(--orange);
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-text {
+    font-size: 0.9375rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.65;
+    font-style: italic;
+    font-family: var(--font-display);
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .author-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  .author-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+  }
+
+  .author-city {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ─── FAQ ─── */
+  .faq-section { background: var(--white); }
+
+  .faq-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 1.25rem 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--black);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.2s;
+    font-family: var(--font-body);
+  }
+
+  .faq-q:hover { color: var(--orange); }
+
+  .faq-arrow {
+    font-size: 1rem;
+    color: var(--stone);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(45deg); color: var(--orange); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-a-inner {
+    padding: 0 0 1.25rem;
+    font-size: 0.9rem;
+    color: var(--stone);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ─── CTA FINAL ─── */
+  .cta-section {
+    background: var(--orange-pale);
+    text-align: center;
+    padding: 7rem 5vw;
+  }
+
+  .cta-section .section-title {
+    max-width: 680px;
+    margin: 0 auto 1rem;
+  }
+
+  .cta-section .section-sub {
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    background: #25D366;
+    color: white;
+    padding: 0.875rem 1.75rem;
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: filter 0.2s, transform 0.15s;
+  }
+
+  .btn-whatsapp:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    color: rgba(255,255,255,0.5);
+    padding: 3rem 5vw;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand .nav-logo { color: white; }
+
+  .footer-desc {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+    margin-top: 0.75rem;
+    max-width: 300px;
+    font-weight: 300;
+  }
+
+  .footer-col h5 {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--orange); }
+
+  .footer-bottom {
+    background: var(--black);
+    padding: 1.25rem 5vw;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero::before { display: none; }
+    .hero-visual { display: none; }
+    .how-header { grid-template-columns: 1fr; gap: 2rem; }
+    .steps-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .steps-grid::before { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+    .platforms-header { grid-template-columns: 1fr; }
+    .platforms-mosaic { grid-template-columns: 1fr 1fr; }
+    .platform-tile.featured-tile { grid-column: span 2; }
+    .why-grid { grid-template-columns: 1fr; }
+    .faq-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Chris<span>hein</span></a>
+  <ul class="nav-links">
+    <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
+    <li><a href="#plateformes">Plateformes</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://wa.me/22900000000" class="nav-cta">Commander maintenant</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Shopping International · Cotonou</div>
+    <h1>Le monde entier,<br>livré <em>chez vous</em><br>au Bénin.</h1>
+    <p class="hero-sub">Chrishein commande à votre place sur SHEIN, Temu, Alibaba, Amazon et bien d'autres — sans stress, sans frontières, sans mauvaises surprises.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/22900000000" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Envoyer mon lien WhatsApp
+      </a>
+      <a href="#comment-ca-marche" class="btn-secondary">Voir comment ça marche →</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-avatars">
+        <span>AK</span>
+        <span>MF</span>
+        <span>RS</span>
+        <span>+</span>
+      </div>
+      <div class="trust-text">
+        <strong>Des centaines de clients satisfaits</strong>
+        à Cotonou et partout au Bénin
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="platform-card">
+      <div class="platform-icon" style="background:#FFE8E0;">🛍️</div>
+      <div class="platform-info">
+        <div class="platform-name">SHEIN</div>
+        <div class="platform-tag">Mode & Beauté</div>
+      </div>
+      <div class="platform-rate">900 FCFA/$</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon" style="background:#E8F4FF;">📦</div>
+      <div class="platform-info">
+        <div class="platform-name">Temu</div>
+        <div class="platform-tag">Généraliste</div>
+      </div>
+      <div class="platform-rate">1000 FCFA/€</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon" style="background:#FFF5E0;">🏭</div>
+      <div class="platform-info">
+        <div class="platform-name">Alibaba</div>
+        <div class="platform-tag">B2B & Grossistes</div>
+      </div>
+      <div class="platform-rate">Sur devis</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon" style="background:#E8F7F0;">🌍</div>
+      <div class="platform-info">
+        <div class="platform-name">Amazon & USA</div>
+        <div class="platform-tag">Tous produits</div>
+      </div>
+      <div class="platform-rate">650 FCFA/$</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <span class="trust-item-icon">✓</span>
+    <strong>Devis transparent</strong> avant chaque commande
+  </div>
+  <div class="trust-item">
+    <span class="trust-item-icon">⚡</span>
+    <strong>18 jours max</strong> pour SHEIN & Temu
+  </div>
+  <div class="trust-item">
+    <span class="trust-item-icon">🔒</span>
+    <strong>Paiement sécurisé</strong> à validation du devis
+  </div>
+  <div class="trust-item">
+    <span class="trust-item-icon">📍</span>
+    <strong>Livraison à Cotonou</strong> et partout au Bénin
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="comment-ca-marche">
+  <div class="how-header">
+    <div>
+      <div class="section-label">Le processus</div>
+      <h2 class="section-title">Simple comme un message WhatsApp.</h2>
+    </div>
+    <p class="section-sub">Vous avez déjà un lien ou juste une idée de produit — dans les deux cas, Chrishein s'occupe du reste.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('link', this)">Vous avez un lien</button>
+    <button class="tab" onclick="switchTab('search', this)">Vous cherchez un produit</button>
+  </div>
+
+  <div id="tab-link" class="steps-grid">
+    <div class="step active-step">
+      <div class="step-num">1</div>
+      <div class="step-title">Envoyez votre lien</div>
+      <div class="step-desc">Partagez le lien de l'article depuis n'importe quel site partenaire.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Recevez un devis</div>
+      <div class="step-desc">Chrishein vous envoie un devis TTC clair — sans frais cachés.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Validez & payez</div>
+      <div class="step-desc">Si le devis vous convient, confirmez et procédez au paiement.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Commande passée</div>
+      <div class="step-desc">Chrishein passe la commande en votre nom sur la plateforme.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-title">Livraison</div>
+      <div class="step-desc">Votre colis arrive à Cotonou en quelques jours ou semaines.</div>
+    </div>
+  </div>
+
+  <div id="tab-search" class="steps-grid" style="display:none;">
+    <div class="step active-step">
+      <div class="step-num">1</div>
+      <div class="step-title">Décrivez le produit</div>
+      <div class="step-desc">Envoyez une description, une photo de référence ou les specs.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Chrishein cherche</div>
+      <div class="step-desc">On trouve le meilleur article au meilleur prix pour vous.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Offre & devis</div>
+      <div class="step-desc">Vous recevez une proposition avec le devis TTC complet.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Validation</div>
+      <div class="step-desc">Vous validez, on passe la commande immédiatement.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-title">Livraison</div>
+      <div class="step-desc">Article livré chez vous dans les délais annoncés.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="tarifs">
+  <div class="pricing-header">
+    <div class="section-label">Tarification</div>
+    <h2 class="section-title">Des prix clairs, sans surprise.</h2>
+    <p class="section-sub">Votre devis comprend toujours : prix article + frais d'expédition + frais Chrishein. Rien d'autre.</p>
+  </div>
+
+  <div class="pricing-grid">
+    <!-- SHEIN -->
+    <div class="pricing-card">
+      <div class="pricing-platform">Mode & Beauté</div>
+      <div class="pricing-name">SHEIN</div>
+      <div class="pricing-row">
+        <span class="pricing-label">Accessoires (< 25$)</span>
+        <span class="pricing-value pricing-highlight">900 FCFA/$</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Vêtements (< 25$)</span>
+        <span class="pricing-value pricing-highlight">950 FCFA/$</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Commande > 25$</span>
+        <span class="pricing-value">670 FCFA/$</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Frais d'expédition (> 25$)</span>
+        <span class="pricing-value">10 000 FCFA/kg</span>
+      </div>
+      <div class="pricing-note">Délai de livraison : 18 jours maximum. Frais d'expédition payables à l'arrivée.</div>
+    </div>
+
+    <!-- TEMU (featured) -->
+    <div class="pricing-card featured">
+      <div class="featured-badge">Populaire</div>
+      <div class="pricing-platform">Généraliste</div>
+      <div class="pricing-name">Temu</div>
+      <div class="pricing-row">
+        <span class="pricing-label">Accessoires (< 25$)</span>
+        <span class="pricing-value pricing-highlight">1 000 FCFA/€</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Vêtements (< 25$)</span>
+        <span class="pricing-value pricing-highlight">1 100 FCFA/€</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Accessoires (> 25$)</span>
+        <span class="pricing-value">1 000 FCFA/€</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Vêtements (> 25$)</span>
+        <span class="pricing-value">1 100 FCFA/€</span>
+      </div>
+      <div class="pricing-note">Délai de livraison : 18 jours maximum. Tarification TTC incluse.</div>
+    </div>
+
+    <!-- ALIBABA -->
+    <div class="pricing-card">
+      <div class="pricing-platform">B2B & Grossistes</div>
+      <div class="pricing-name">Alibaba</div>
+      <div class="pricing-row">
+        <span class="pricing-label">Taux de base</span>
+        <span class="pricing-value pricing-highlight">650 FCFA/$</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Transport aérien</span>
+        <span class="pricing-value">Rapide · plus cher</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Transport maritime</span>
+        <span class="pricing-value">Économique · gros volumes</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-label">Frais d'expédition</span>
+        <span class="pricing-value">Calculés séparément</span>
+      </div>
+      <div class="pricing-note">Devis sur mesure en fonction du poids et du volume (CBM) de la commande.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="platforms-section" id="plateformes">
+  <div class="platforms-header">
+    <div>
+      <div class="section-label">Nos plateformes partenaires</div>
+      <h2 class="section-title">Commandez depuis n'importe où.</h2>
+      <p class="section-sub">Nous travaillons avec les plus grandes plateformes mondiales. Si vous voyez quelque chose que vous voulez, on peut probablement vous l'obtenir.</p>
+    </div>
+  </div>
+
+  <div class="platforms-mosaic">
+    <div class="platform-tile featured-tile">
+      <div class="platform-tile-icon" style="background: var(--orange); color: white; font-size:1.5rem; display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;">🛍</div>
+      <div>
+        <div class="platform-tile-name">SHEIN — Mode & Beauté</div>
+        <div class="platform-tile-cat">Vêtements · Chaussures · Accessoires · Beauté · Maison</div>
+      </div>
+    </div>
+    <div class="platform-tile">
+      <div class="platform-tile-icon" style="background:#FFF0E8;">📦</div>
+      <div class="platform-tile-name">Temu</div>
+      <div class="platform-tile-cat">Généraliste</div>
+    </div>
+    <div class="platform-tile">
+      <div class="platform-tile-icon" style="background:#FFF8E0;">🏭</div>
+      <div class="platform-tile-name">Alibaba</div>
+      <div class="platform-tile-cat">B2B · Gros volumes</div>
+    </div>
+    <div class="platform-tile">
+      <div class="platform-tile-icon" style="background:#E8F4FF;">📬</div>
+      <div class="platform-tile-name">Amazon</div>
+      <div class="platform-tile-cat">Généraliste</div>
+    </div>
+    <div class="platform-tile">
+      <div class="platform-tile-icon" style="background:#FFE8EE;">💄</div>
+      <div class="platform-tile-name">Fashion Nova</div>
+      <div class="platform-tile-cat">Mode USA</div>
+    </div>
+    <div class="platform-tile">
+      <div class="platform-tile-icon" style="background:#E8FFF3;">🌿</div>
+      <div class="platform-tile-name">Aroma-Zone</div>
+      <div class="platform-tile-cat">Cosmétique naturelle</div>
+    </div>
+    <div class="platform-tile">
+      <div class="platform-tile-icon" style="background:#F0E8FF;">✨</div>
+      <div class="platform-tile-name">Sites USA</div>
+      <div class="platform-tile-cat">Divers · Made in USA</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHRISHEIN -->
+<section class="why-section">
+  <div class="why-grid">
+    <div>
+      <div class="section-label">Pourquoi Chrishein</div>
+      <h2 class="section-title">On lève les barrières entre vous et le monde.</h2>
+      <div class="why-features">
+        <div class="why-feat">
+          <div class="feat-icon">🔍</div>
+          <div class="feat-text">
+            <h4>Transparence totale</h4>
+            <p>Chaque devis détaille le prix article, les frais d'expédition et les frais de prestation — aucun coût caché.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-text">
+            <h4>Rapidité garantie</h4>
+            <p>Délais clairs selon la plateforme. SHEIN et Temu en 18 jours max. Alibaba selon le mode de transport choisi.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="feat-icon">🤝</div>
+          <div class="feat-text">
+            <h4>Accompagnement personnalisé</h4>
+            <p>Pas de lien ? Pas de problème. Décrivez ce que vous cherchez et Chrishein trouve le meilleur article pour vous.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="feat-icon">🚢</div>
+          <div class="feat-text">
+            <h4>Options logistiques flexibles</h4>
+            <p>Pour Alibaba : choisissez entre aérien (rapide) ou maritime (économique pour les gros volumes).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual">
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"J'ai envoyé un lien SHEIN le matin, j'avais mon devis dans l'heure. Livré en 15 jours. Exactement ce que je voulais, au prix annoncé."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">AF</div>
+          <div>
+            <div class="author-name">Aminata F.</div>
+            <div class="author-city">Cotonou, Bénin</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Je commandais régulièrement pour ma boutique sur Alibaba — Chrishein m'a facilité la vie avec le transport maritime. Économies réelles."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:#4A90D9;">RK</div>
+          <div>
+            <div class="author-name">Roland K.</div>
+            <div class="author-city">Porto-Novo, Bénin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-layout">
+    <div>
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Questions fréquentes.</h2>
+      <p class="section-sub" style="margin-top: 1rem;">Une question non listée ? Écrivez-nous directement sur WhatsApp.</p>
+      <a href="https://wa.me/22900000000" class="btn-primary" style="margin-top: 2rem; display: inline-flex;">Nous contacter →</a>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Comment envoyer mon lien à Chrishein ?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Depuis SHEIN ou Temu, utilisez le bouton de partage en haut à droite, sélectionnez les articles souhaités et envoyez le lien sur WhatsApp. Pour Alibaba, une capture d'écran ou le lien direct suffisent.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quels sont les délais de livraison ?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Pour SHEIN et Temu : 18 jours maximum. Pour Alibaba : variable selon le mode de transport choisi — aérien pour aller vite, maritime pour optimiser les coûts sur les gros volumes.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quand est-ce que je paie ?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Vous payez uniquement après avoir reçu et validé le devis. Aucune commande n'est passée sans votre accord explicite.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Que comprend exactement le devis ?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Le devis comprend le prix de l'article, les frais d'expédition (de l'entrepôt du fournisseur à Cotonou) et les frais de prestation Chrishein. Pour SHEIN avec commande supérieure à 25$, les frais d'expédition sont payables séparément à l'arrivée du colis (10 000 FCFA/kg).</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Est-ce qu'on peut commander en gros (B2B) ?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Oui, Alibaba est la plateforme idéale pour les commandes en gros. Chrishein optimise la logistique avec l'option maritime pour les volumes importants, ce qui réduit significativement les coûts.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Vous proposez des produits "Made in USA" ?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Oui ! Nous proposons également des produits Made in USA, souvent disponibles en stock pour une acquisition rapide. Contactez-nous pour connaître les disponibilités actuelles.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="section-label">Prêt à commander ?</div>
+  <h2 class="section-title">Votre prochain favori vous attend déjà en ligne.</h2>
+  <p class="section-sub">Envoyez-nous le lien ou décrivez ce que vous cherchez. On s'occupe du reste.</p>
+  <div class="cta-actions">
+    <a href="https://wa.me/22900000000" class="btn-whatsapp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Commander sur WhatsApp
+    </a>
+    <a href="#tarifs" class="btn-primary">Voir les tarifs</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo">Chris<span>hein</span></a>
+    <p class="footer-desc">Votre partenaire de shopping international au Bénin. Simplifier vos achats à l'international, lever les barrières logistiques, vous offrir le meilleur du monde.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Services</h5>
+    <ul class="footer-links">
+      <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+      <li><a href="#tarifs">Tarification</a></li>
+      <li><a href="#plateformes">Plateformes</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Contact</h5>
+    <ul class="footer-links">
+      <li><a href="https://wa.me/22900000000">WhatsApp</a></li>
+      <li><a href="#">Cotonou, Bénin</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  © 2025 Chrishein · Tous droits réservés · Shopping international livré au Bénin
+</div>
+
+<script>
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-link').style.display = tab === 'link' ? 'grid' : 'none';
+    document.getElementById('tab-search').style.display = tab === 'search' ? 'grid' : 'none';
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.style.opacity = '1';
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.pricing-card, .platform-tile, .why-feat').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

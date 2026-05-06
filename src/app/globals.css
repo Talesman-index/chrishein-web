@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #E8621A;
+  --color-brand-black: #141210;
+  --color-brand-beige: #F5F2EE;
+  
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-dm-sans);
+
+  --tracking-tightest: -0.03em;
+}
+
+:root {
+  --brand-orange: #E8621A;
+  --brand-black: #141210;
+  --brand-beige: #F5F2EE;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-brand-black;
+  }
+}
+
+@layer components {
+  .btn-pill {
+    @apply px-8 py-3 rounded-full font-medium transition-all duration-300 inline-flex items-center justify-center;
+  }
+  
+  .btn-orange {
+    @apply bg-brand-orange text-white hover:bg-brand-orange/90 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  
+  .btn-black {
+    @apply bg-brand-black text-white hover:bg-brand-black/90 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .card-premium {
+    @apply bg-white border border-brand-beige p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+}
