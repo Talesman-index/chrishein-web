@@ -721,7 +721,7 @@ const Pricing = () => {
         <div className="mt-12 p-6 bg-brand-beige/50 rounded-2xl border border-brand-orange/10 text-center max-w-3xl mx-auto">
           <div className="text-sm text-gray-600 space-y-3">
             <p>
-              <span className="font-bold">Sites USA</span> — Amazon, Fashion Nova, AliExpress &amp; autres :<br />
+              <span className="font-bold">Sites USA</span> — iHerb, Amazon USA, Back Market, Apple, Fashion Nova, AliExpress &amp; autres :<br />
               Taux de base <span className="font-bold text-brand-orange">650 FCFA/$ HT</span>.<br />
               Expédition calculée séparément.
             </p>
