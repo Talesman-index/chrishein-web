@@ -491,7 +491,7 @@ const HowItWorks = () => {
 
 const ExpressDelivery = () => {
   return (
-    <section className="bg-brand-black text-white py-24 overflow-hidden relative">
+    <section className="text-white py-24 overflow-hidden relative" style={{ background: "#1a1208" }}>
       {/* Decorative background fly.svg */}
       <motion.div 
         animate={{ 
@@ -541,7 +541,7 @@ const ExpressDelivery = () => {
               </div>
               <div>
                 <h4 className="font-bold text-lg mb-2">Livraison Locale</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">Une fois à Cotonou, recevez votre colis à domicile ou retirez-le en toute simplicité dans nos points relais.</p>
+                <p className="text-gray-400 text-sm leading-relaxed">Une fois à Cotonou, recevez votre colis directement à domicile.</p>
               </div>
             </div>
           </div>
