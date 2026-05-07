@@ -98,6 +98,7 @@ const Nav = () => {
     { href: "#how", label: "Comment ça marche" },
     { href: "#pricing", label: "Tarifs" },
     { href: "#platforms", label: "Plateformes" },
+    { href: "#guides", label: "Comment commander" },
     { href: "#faq", label: "FAQ" },
   ];
 
@@ -617,22 +618,22 @@ const Pricing = () => {
             <div className="space-y-6 flex-grow">
               <div className="space-y-4">
                 <div className="flex justify-between items-center pb-2 border-b border-brand-beige">
-                  <span className="text-sm">Accessoires (TTC)</span>
-                  <span className="font-bold text-brand-orange">900 FCFA/$</span>
+                  <span className="text-base">Accessoires (TTC)</span>
+                  <span className="text-lg font-bold text-brand-orange">900 FCFA/$</span>
                 </div>
                 <div className="flex justify-between items-center pb-2 border-b border-brand-beige">
-                  <span className="text-sm">Mode & Chaussures (TTC)</span>
-                  <span className="font-bold text-brand-orange">950 FCFA/$</span>
+                  <span className="text-base">Mode &amp; Chaussures (TTC)</span>
+                  <span className="text-lg font-bold text-brand-orange">950 FCFA/$</span>
                 </div>
               </div>
               
               <div className="pt-4">
-                <p className="text-[10px] font-bold text-brand-orange uppercase mb-3">Option Commande &gt; 25$</p>
+                <p className="text-xs font-bold text-brand-orange uppercase mb-3">Option Commande &gt; 100$</p>
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-sm">Taux HT</span>
-                  <span className="font-bold">670 FCFA/$</span>
+                  <span className="text-base">Taux HT</span>
+                  <span className="text-lg font-bold">670 FCFA/$</span>
                 </div>
-                <p className="text-[10px] text-gray-400 italic leading-tight">
+                <p className="text-xs text-gray-400 italic leading-tight">
                   + Expédition : 10 000 FCFA/kg <br/>(payable à l'arrivée au Bénin)
                 </p>
               </div>
@@ -718,9 +719,18 @@ const Pricing = () => {
 
         {/* Other Sites Note */}
         <div className="mt-12 p-6 bg-brand-beige/50 rounded-2xl border border-brand-orange/10 text-center max-w-3xl mx-auto">
-          <p className="text-sm text-gray-600">
-            <span className="font-bold">Amazon, Fashion Nova, AliExpress & autres sites USA :</span> Taux de base <span className="font-bold text-brand-orange">650 FCFA/$ HT</span>. Expédition calculée séparément.
-          </p>
+          <div className="text-sm text-gray-600 space-y-3">
+            <p>
+              <span className="font-bold">Sites USA</span> — Amazon, Fashion Nova, AliExpress &amp; autres :<br />
+              Taux de base <span className="font-bold text-brand-orange">650 FCFA/$ HT</span>.<br />
+              Expédition calculée séparément.
+            </p>
+            <p>
+              <span className="font-bold">Sites France</span> — Notino, Sephora, Cdiscount &amp; autres :<br />
+              Taux de base <span className="font-bold text-brand-orange">650 FCFA/€ HT</span>.<br />
+              Expédition calculée séparément.
+            </p>
+          </div>
         </div>
       </div>
     </section>
